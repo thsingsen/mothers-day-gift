@@ -18,12 +18,12 @@ function createParticle(x, y) {
     document.querySelector('.background-particles').appendChild(particle);
     setTimeout(() => particle.remove(), 4000);
 }
-setInterval(() => createParticle(), 350);
 
 // 鼠标点击/移动时生成粒子
 window.addEventListener('mousemove', e => {
     if (Math.random() < 0.15) createParticle(e.clientX, e.clientY);
 });
+
 window.addEventListener('click', e => {
     for (let i = 0; i < 6; i++) {
         setTimeout(() => createParticle(e.clientX, e.clientY), i * 40);
