@@ -66,7 +66,10 @@ setInterval(createPetal, 400);
 
 // 卡片翻页交互
 const flipCard = document.querySelector('.flip-card');
-flipCard.addEventListener('click', function() {
+const flipCardInner = document.querySelector('.flip-card-inner');
+flipCard.addEventListener('click', function(e) {
+    // 避免点击音乐按钮时也翻页
+    if (e.target.closest('#music-toggle')) return;
     flipCard.classList.toggle('flipped');
 });
 
