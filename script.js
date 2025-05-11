@@ -13,7 +13,7 @@ function createParticle(x, y) {
     particle.style.zIndex = 1;
     particle.innerHTML = `
         <svg width="100%" height="100%" viewBox="0 0 32 32">
-            <path d="M16 29 Q2 16 8 8 Q16 0 24 8 Q30 16 16 29 Z" fill="#ffb6c1"/>
+            <path d="M16 29 C8 20, 0 12, 8 7 C12 4, 16 8, 16 12 C16 8, 20 4, 24 7 C32 12, 24 20, 16 29 Z" fill="#ff4b4b"/>
         </svg>`;
     document.querySelector('.background-particles').appendChild(particle);
     setTimeout(() => particle.remove(), 4000);

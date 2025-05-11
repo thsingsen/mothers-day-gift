@@ -122,3 +122,25 @@ body {
         min-height: 40vh;
     }
 }
+
+.decorations {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 99;
+}
+.carnation.left-top {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    opacity: 0.92;
+    transform: rotate(-12deg) scale(1.1);
+}
+@media (max-width: 600px) {
+    .carnation.left-top {
+        width: 54px;
+        height: 54px;
+        top: 6px;
+        left: 4px;
+    }
+}
