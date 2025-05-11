@@ -82,7 +82,9 @@ musicBtn.onclick = function() {
         bgm.pause();
         musicBtn.textContent = '🔇';
     } else {
-        bgm.play();
+        bgm.play().catch(e => {
+            alert('音频播放失败，请尝试刷新页面或更换浏览器。');
+        });
         musicBtn.textContent = '🔊';
     }
     isPlaying = !isPlaying;
