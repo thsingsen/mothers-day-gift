@@ -45,4 +45,47 @@ document.querySelector('.photo-placeholder').addEventListener('click', function(
         }
     };
     input.click();
+});
+
+// 花瓣飘落动画
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.animationDuration = (Math.random() * 2 + 4) + 's';
+    petal.style.opacity = Math.random() * 0.5 + 0.5;
+    petal.style.fontSize = (Math.random() * 12 + 20) + 'px';
+    petal.innerHTML = `
+        <svg width="32" height="32" viewBox="0 0 32 32">
+            <path d="M16 2 Q30 16 16 30 Q2 16 16 2 Z" fill="#ffb6c1"/>
+        </svg>`;
+    document.querySelector('.petals').appendChild(petal);
+    setTimeout(() => petal.remove(), 6000);
+}
+setInterval(createPetal, 400);
+
+// 卡片翻页交互
+const flipCard = document.querySelector('.flip-card');
+flipCard.addEventListener('click', function() {
+    flipCard.classList.toggle('flipped');
+});
+
+// 音乐控制按钮
+const bgm = document.getElementById('bgm');
+const musicBtn = document.getElementById('music-toggle');
+let isPlaying = true;
+musicBtn.onclick = function() {
+    if (isPlaying) {
+        bgm.pause();
+        musicBtn.textContent = '🔇';
+    } else {
+        bgm.play();
+        musicBtn.textContent = '🔊';
+    }
+    isPlaying = !isPlaying;
+};
+// 兼容自动播放策略
+window.addEventListener('click', function firstPlay() {
+    bgm.play();
+    window.removeEventListener('click', firstPlay);
 }); 

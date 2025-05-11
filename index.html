@@ -6,25 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>母亲节快乐</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div class="petals"></div>
     <div class="container">
-        <div class="card">
-            <div class="heart"></div>
-            <h1>亲爱的妈妈</h1>
-            <div class="message">
-                <p>感谢您一直以来的付出与关爱</p>
-                <p>愿您永远健康快乐</p>
-                <p>母亲节快乐！</p>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="heart-svg">
+                        <svg width="80" height="80" viewBox="0 0 80 80">
+                            <path d="M40 70 Q10 40 40 20 Q70 40 40 70 Z" fill="#ff4b4b" />
+                        </svg>
+                    </div>
+                    <h1 class="art-font">母亲节快乐</h1>
+                    <p class="subtitle">点击翻开卡片</p>
+                </div>
+                <div class="flip-card-back">
+                    <h2 class="art-font">亲爱的妈妈：</h2>
+                    <p class="blessing">感谢您无私的爱与付出，<br>愿您永远健康美丽，<br>每天都开开心心！<br><span class="love">❤</span></p>
+                    <p class="from">—— 您的孩子</p>
+                </div>
             </div>
-            <div class="photo-gallery">
-                <!-- 这里可以添加照片 -->
-                <div class="photo-placeholder">添加照片</div>
-            </div>
-            <div class="floating-hearts"></div>
         </div>
     </div>
+    <audio id="bgm" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b5fae3b2.mp3" loop autoplay></audio>
+    <button id="music-toggle">🔊</button>
     <script src="script.js"></script>
 </body>
 
