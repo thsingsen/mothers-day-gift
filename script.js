@@ -1,96 +1,56 @@
-function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('floating-heart');
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-    heart.innerHTML = '❤';
-    heart.style.position = 'fixed';
-    heart.style.color = '#ff4b4b';
-    heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-    heart.style.opacity = Math.random() * 0.5 + 0.5;
-    heart.style.animation = `float ${Math.random() * 3 + 2}s linear`;
-    heart.style.top = '100vh';
-    heart.style.zIndex = '-1';
-    
-    document.body.appendChild(heart);
-    
-    setTimeout(() => {
-        heart.remove();
-    }, 5000);
-}
-
-// 每300毫秒创建一个新的爱心
-setInterval(createHeart, 300);
-
-// 添加照片上传功能
-document.querySelector('.photo-placeholder').addEventListener('click', function() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                img.style.borderRadius = '10px';
-                document.querySelector('.photo-placeholder').innerHTML = '';
-                document.querySelector('.photo-placeholder').appendChild(img);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-    input.click();
-});
-
-// 花瓣飘落动画
-function createPetal() {
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    petal.style.left = Math.random() * 100 + 'vw';
-    petal.style.animationDuration = (Math.random() * 2 + 4) + 's';
-    petal.style.opacity = Math.random() * 0.5 + 0.5;
-    petal.style.fontSize = (Math.random() * 12 + 20) + 'px';
-    petal.innerHTML = `
-        <svg width="32" height="32" viewBox="0 0 32 32">
-            <path d="M16 2 Q30 16 16 30 Q2 16 16 2 Z" fill="#ffb6c1"/>
+// 粒子动画（爱心/花瓣）
+function createParticle(x, y) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    const size = Math.random() * 18 + 16;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = (x !== undefined ? x : Math.random() * window.innerWidth) + 'px';
+    particle.style.top = (y !== undefined ? y : Math.random() * window.innerHeight) + 'px';
+    particle.style.opacity = Math.random() * 0.5 + 0.5;
+    particle.style.position = 'absolute';
+    particle.style.pointerEvents = 'none';
+    particle.style.zIndex = 1;
+    particle.innerHTML = `
+        <svg width="100%" height="100%" viewBox="0 0 32 32">
+            <path d="M16 29 Q2 16 8 8 Q16 0 24 8 Q30 16 16 29 Z" fill="#ffb6c1"/>
         </svg>`;
-    document.querySelector('.petals').appendChild(petal);
-    setTimeout(() => petal.remove(), 6000);
+    document.querySelector('.background-particles').appendChild(particle);
+    setTimeout(() => particle.remove(), 4000);
 }
-setInterval(createPetal, 400);
+setInterval(() => createParticle(), 350);
 
-// 卡片翻页交互
-const flipCard = document.querySelector('.flip-card');
-const flipCardInner = document.querySelector('.flip-card-inner');
-flipCard.addEventListener('click', function(e) {
-    // 避免点击音乐按钮时也翻页
-    if (e.target.closest('#music-toggle')) return;
-    flipCard.classList.toggle('flipped');
+// 鼠标点击/移动时生成粒子
+window.addEventListener('mousemove', e => {
+    if (Math.random() < 0.15) createParticle(e.clientX, e.clientY);
+});
+window.addEventListener('click', e => {
+    for (let i = 0; i < 6; i++) {
+        setTimeout(() => createParticle(e.clientX, e.clientY), i * 40);
+    }
 });
 
-// 音乐控制按钮
-const bgm = document.getElementById('bgm');
-const musicBtn = document.getElementById('music-toggle');
-let isPlaying = true;
-musicBtn.onclick = function() {
-    if (isPlaying) {
-        bgm.pause();
-        musicBtn.textContent = '🔇';
-    } else {
-        bgm.play().catch(e => {
-            alert('音频播放失败，请尝试刷新页面或更换浏览器。');
-        });
-        musicBtn.textContent = '🔊';
-    }
-    isPlaying = !isPlaying;
-};
-// 兼容自动播放策略
-window.addEventListener('click', function firstPlay() {
-    bgm.play();
-    window.removeEventListener('click', firstPlay);
-}); 
+// 主标题互动特效
+const mainTitle = document.getElementById('mainTitle');
+mainTitle.addEventListener('mouseenter', () => {
+    mainTitle.classList.add('active');
+});
+mainTitle.addEventListener('mouseleave', () => {
+    mainTitle.classList.remove('active');
+});
+mainTitle.addEventListener('click', () => {
+    mainTitle.classList.add('active');
+    setTimeout(() => mainTitle.classList.remove('active'), 600);
+});
+
+const subtitle = document.querySelector('.subtitle');
+subtitle.addEventListener('mouseenter', () => {
+    subtitle.classList.add('active');
+});
+subtitle.addEventListener('mouseleave', () => {
+    subtitle.classList.remove('active');
+});
+subtitle.addEventListener('click', () => {
+    subtitle.classList.add('active');
+    setTimeout(() => subtitle.classList.remove('active'), 800);
+});
